@@ -17,6 +17,7 @@ export default function App() {
       <div className="fixed inset-0 z-0 pointer-events-none bg-black">
         <video
           src="videos/hero-bg.mp4"
+          poster="videos/hero-bg.jpg"
           preload="auto"
           autoPlay
           loop

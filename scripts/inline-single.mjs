@@ -39,13 +39,22 @@ const videoDir = path.join(dir, "videos");
 const standalonePath = path.join(dir, "Game-Design-Portfolio-standalone.html");
 let standalone = html;
 let inlined = 0;
+const MIME = {
+  ".mp4": "video/mp4",
+  ".webm": "video/webm",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".png": "image/png",
+  ".svg": "image/svg+xml",
+};
 if (fs.existsSync(videoDir)) {
   for (const name of fs.readdirSync(videoDir)) {
-    if (!name.toLowerCase().endsWith(".mp4")) continue;
+    const mime = MIME[path.extname(name).toLowerCase()];
+    if (!mime) continue;
     const ref = "videos/" + name;
     if (!standalone.includes(ref)) continue;
     const b64 = fs.readFileSync(path.join(videoDir, name)).toString("base64");
-    standalone = standalone.split(ref).join("data:video/mp4;base64," + b64);
+    standalone = standalone.split(ref).join("data:" + mime + ";base64," + b64);
     inlined += 1;
   }
 }

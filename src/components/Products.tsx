@@ -16,6 +16,7 @@ type Work = {
   title: string
   body: string
   video: string
+  poster: string
 }
 
 const WORKS: Work[] = [
@@ -25,6 +26,7 @@ const WORKS: Work[] = [
     title: 'The Last Day',
     body: 'A survival zombie FPS where the level is the real threat. Sightlines, chokepoints and cover are placed so the fight keeps players moving instead of camping one corner.',
     video: 'videos/the-last-day.mp4',
+    poster: 'videos/the-last-day.jpg',
   },
   {
     id: '02',
@@ -32,6 +34,7 @@ const WORKS: Work[] = [
     title: 'Formula of the Fading Honeymoon',
     body: 'A story-driven horror RPG built around puzzle rooms. Maps, props and dialogue are arranged so clues read clearly on screen, and every solution is something the player has already seen.',
     video: 'videos/formula-of-the-fading-honeymoon.mp4',
+    poster: 'videos/formula-of-the-fading-honeymoon.jpg',
   },
   {
     id: '03',
@@ -39,23 +42,29 @@ const WORKS: Work[] = [
     title: 'Shan Hai Jing: Symbiosis Era',
     body: 'A digital exhibition hall for the Classic of Mountains and Seas. A walkable 3D space that turns mythic beasts into exhibits, laid out and lit so visitors move naturally from one creature to the next.',
     video: 'videos/shan-hai-jing.mp4',
+    poster: 'videos/shan-hai-jing.jpg',
   },
 ]
 
 function WorkVideo({
   src,
+  poster,
   id,
   title,
   onOpen,
 }: {
   src: string
+  poster: string
   id: string
   title: string
   onOpen: () => void
 }) {
   const [missing, setMissing] = useState(false)
+  const [posterMissing, setPosterMissing] = useState(false)
 
-  if (missing) {
+  // If the clip cannot play (blocked network, unsupported codec or autoplay
+  // refused) fall back to its poster frame so the card never looks broken.
+  if (missing && posterMissing) {
     return (
       <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-xl bg-black">
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#141414]">
@@ -75,16 +84,26 @@ function WorkVideo({
       aria-label={`Play ${title}`}
       className="group/play relative aspect-video w-full shrink-0 cursor-pointer overflow-hidden rounded-xl bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EBE8EB]"
     >
-      <video
-        src={src}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        onError={() => setMissing(true)}
-        className="absolute inset-0 h-full w-full object-contain transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
-      />
+      {missing ? (
+        <img
+          src={poster}
+          alt=""
+          onError={() => setPosterMissing(true)}
+          className="absolute inset-0 h-full w-full object-contain"
+        />
+      ) : (
+        <video
+          src={src}
+          poster={poster}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          onError={() => setMissing(true)}
+          className="absolute inset-0 h-full w-full object-contain transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+        />
+      )}
 
       <span className="pointer-events-none absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-lg bg-black/55 text-white opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
         <Maximize2 className="h-4 w-4" />
@@ -114,6 +133,7 @@ export default function Products() {
           >
             <WorkVideo
               src={work.video}
+              poster={work.poster}
               id={work.id}
               title={work.title}
               onOpen={() => setOpenWork(work)}

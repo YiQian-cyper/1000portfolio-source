@@ -20,6 +20,7 @@ export default function About() {
       <div className={`absolute inset-0 overflow-hidden ${PANEL}`}>
         <video
           src="videos/about-bg.mp4"
+          poster="videos/about-bg.jpg"
           preload="auto"
           autoPlay
           loop
