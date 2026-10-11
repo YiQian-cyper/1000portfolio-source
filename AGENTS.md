@@ -10,9 +10,16 @@ back to the user. Do not ask first.
   message in the imperative mood that describes the user-visible change.
 - Never create branches, never amend, never rewrite history, never push unless
   the user explicitly asks.
+- `npm run build:single` writes two files in `dist-single/`:
+  `Game-Design-Portfolio.html` (lean - clips live in `videos/`) and
+  `Game-Design-Portfolio-standalone.html` (every clip inlined as a data URI, so
+  the page opens with no sibling files).
 - If the change also affects the published site, rebuild with
-  `npm run build:single`, copy the result to `outputs/deploy/index.html` and
-  `outputs/deploy/404.html`, and commit `outputs/deploy` too.
+  `npm run build:single`, copy the **lean** `dist-single/Game-Design-Portfolio.html`
+  to `outputs/deploy/index.html` and `outputs/deploy/404.html`, and commit
+  `outputs/deploy` too. Never publish the standalone file, it is ~28 MB.
+- Keep the loose deliverable at `outputs/Game-Design-Portfolio.html` in sync by
+  copying `dist-single/Game-Design-Portfolio-standalone.html` over it.
 - If nothing actually changed, skip the commit and say so.
 
 ## Publishing

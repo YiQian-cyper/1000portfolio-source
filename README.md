@@ -10,7 +10,7 @@
 
 双击 `outputs\Game-Design-Portfolio.html`（就在上层 outputs 文件夹里）。
 这是一个把 JS/CSS 全部内联进去的独立网页，双击即在浏览器打开，也可以单独发给别人、放到任何静态空间。
-（字体、首屏背景视频、关于区的花朵视频走网络外链；三个作品视频都在本地 `public/videos/`。）
+（字体、首屏背景视频、关于区的花朵视频、三个作品视频已**全部内联**进这一个文件——双击即用，文件夹里只有它一个也照样正常，可以直接发给别人。）
 
 **方式二：项目开发模式（要改内容时用这个）**
 
@@ -20,7 +20,7 @@
 npm run dev           # 开发预览（自动热更新）
 npm run build         # 生产构建到 dist/
 npm run preview       # 预览构建结果
-npm run build:single  # 重新生成单文件版
+npm run build:single  # 重新生成单文件版（含免依赖的全内联版）
 ```
 
 > 注意：不要直接双击项目根目录的 `index.html`。那是开发入口，必须经 Vite 服务器才能运行，双击只会白屏。要看单文件请用方式一。
@@ -108,7 +108,7 @@ const WORKS = [
 1. **流程文案**：`src/components/Footer.tsx` 的 `PROCESS_STEPS`。
 2. **关于区的配图视频**：`src/components/About.tsx` 里那个花朵视频。
 
-改完内容后执行 `npm run build:single` 重新生成单文件版（再把 `dist-single/Game-Design-Portfolio.html` 复制到 `outputs/`）。
+改完内容后执行 `npm run build:single` 重新生成单文件版。它会产出两个文件：精简版 `dist-single/Game-Design-Portfolio.html`（视频仍放在同级 `videos/`，用于线上部署）和免依赖版 `dist-single/Game-Design-Portfolio-standalone.html`（所有视频已内联）；把后者复制为 `outputs/Game-Design-Portfolio.html` 就是给人看的独立文件。
 
 ## 点开作品视频（灯箱播放）
 
@@ -124,11 +124,11 @@ const WORKS = [
 
 - 主色：页面黑 `#000`、强调橙 `#F64302`
 - 浅色区：关于 `#f0eded`、作品区 `#E8E5E9`、卡片 `#EBE8EB`
-- 字体：`BubbledotICG-FinePos`（点阵标题，**已自托管**，文件在 `src/assets/fonts/`）、`JetBrains Mono`（正文，Google Fonts 外链）
+- 字体：`BubbledotICG-FinePos`（点阵标题，**已自托管**，文件在 `src/assets/fonts/`）、`JetBrains Mono`（正文，**已自托管**，文件在 `src/assets/fonts/`）
 - 动画统一缓动：`cubic-bezier(0.16, 1, 0.3, 1)`
 
 ## 备注
 
-- 正文字体（JetBrains Mono）、首屏背景视频、关于区花朵视频仍走外链；点阵标题字体和三个作品视频都在本地。
+- 现在**不再有任何外链资源**：两款字体、首屏/关于区背景视频、三个作品视频全部本地化；`outputs/Game-Design-Portfolio.html` 可离线直接双击打开。
 - 导航栏初始为白色，滚过一屏后自动转为黑色，以适应下半部分的浅色区块。
 - 若浏览器开启了「减少动态效果」（prefers-reduced-motion），建议在正式投递前手动确认一次过渡观感。

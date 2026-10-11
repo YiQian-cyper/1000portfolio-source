@@ -31,3 +31,31 @@ html = html.replace(cssTag, () => "<style>\n" + css + "\n</style>");
 
 fs.writeFileSync(outPath, html, "utf8");
 console.log("single file:", outPath, (html.length / 1024).toFixed(0) + " kb");
+
+// Second, even more portable variant: inline the local clips as data URIs so the
+// page opens with zero sibling files (no `videos/` folder needed at all). The
+// live deploy keeps using the lean file above so the published page stays light.
+const videoDir = path.join(dir, "videos");
+const standalonePath = path.join(dir, "Game-Design-Portfolio-standalone.html");
+let standalone = html;
+let inlined = 0;
+if (fs.existsSync(videoDir)) {
+  for (const name of fs.readdirSync(videoDir)) {
+    if (!name.toLowerCase().endsWith(".mp4")) continue;
+    const ref = "videos/" + name;
+    if (!standalone.includes(ref)) continue;
+    const b64 = fs.readFileSync(path.join(videoDir, name)).toString("base64");
+    standalone = standalone.split(ref).join("data:video/mp4;base64," + b64);
+    inlined += 1;
+  }
+}
+fs.writeFileSync(standalonePath, standalone, "utf8");
+console.log(
+  "standalone file:",
+  standalonePath,
+  (standalone.length / 1048576).toFixed(1) + " mb",
+  "(" + inlined + " clip" + (inlined === 1 ? "" : "s") + " inlined)",
+);
+if (inlined === 0) {
+  console.warn("warning: no local clips were inlined - check dist-single/videos/");
+}
