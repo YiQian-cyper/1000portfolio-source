@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Self-hosted pixel display face, so the site never depends on a third-party
+   font CDN. Bubbledot ICG (FinePos) - (c) 1995 Image Club Graphics, Inc.;
+   distributed as a free web font. Files live in src/assets/fonts/. */
+@font-face {
+  font-family: 'BubbledotICG-FinePos';
+  src: url('./assets/fonts/bubbledot-icg-finepos.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'JetBrains Mono', monospace;
+  background: #000;
+}
+/* Pixel fringe that leads the About panel as it rises over the hero, echoing
+   the blocky edge of the splash screen. Each row uses a different period so the
+   block boundaries never line up, which reads as a dissolving pixel edge. */
+.pixel-edge-a,
+.pixel-edge-b,
+.pixel-edge-c {
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 12px, transparent 12px 22px);
+  mask-image: repeating-linear-gradient(90deg, #000 0 12px, transparent 12px 22px);
+}
+
+.pixel-edge-b {
+  -webkit-mask-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 4px,
+    #000 4px 11px,
+    transparent 11px 15px
+  );
+  mask-image: repeating-linear-gradient(90deg, transparent 0 4px, #000 4px 11px, transparent 11px 15px);
+}
+
+.pixel-edge-c {
+  -webkit-mask-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 2px,
+    #000 2px 7px,
+    transparent 7px 10px
+  );
+  mask-image: repeating-linear-gradient(90deg, transparent 0 2px, #000 2px 7px, transparent 7px 10px);
+}
