@@ -83,3 +83,24 @@ body {
   );
   mask-image: repeating-linear-gradient(90deg, transparent 0 2px, #000 2px 7px, transparent 7px 10px);
 }
+
+/* About background clip.
+   The clip is 16:9, so on a tall phone a plain `object-cover` crops it into an
+   extreme zoom. Small screens show the whole frame as a band at the top of the
+   panel and fade its lower edge into the panel; desktop keeps the full-bleed
+   cover with the slow parallax zoom. */
+.about-clip-band {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0 62%, transparent 100%);
+}
+
+@media (min-width: 640px) {
+  .about-clip-band {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .about-clip-zoom {
+    transform: scale(calc(1.25 - var(--p) * 0.25));
+  }
+}

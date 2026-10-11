@@ -17,7 +17,9 @@ export default function About() {
       <div className="pixel-edge-b absolute inset-x-0 -top-[5px] h-[5px] bg-[#f0eded]" aria-hidden />
       <div className="pixel-edge-c absolute inset-x-0 -top-[3px] h-[3px] bg-[#f0eded]" aria-hidden />
 
-      <div className={`absolute inset-0 overflow-hidden ${PANEL}`}>
+      <div
+        className={`about-clip-band absolute left-0 right-0 top-0 aspect-video overflow-hidden sm:bottom-0 sm:aspect-auto ${PANEL}`}
+      >
         <video
           src="videos/about-bg.mp4"
           poster="videos/about-bg.jpg"
@@ -26,8 +28,7 @@ export default function About() {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover will-change-transform"
-          style={{ transform: 'scale(calc(1.25 - var(--p) * 0.25))' }}
+          className="about-clip-zoom h-full w-full object-cover will-change-transform"
         />
       </div>
 
