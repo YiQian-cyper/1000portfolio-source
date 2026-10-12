@@ -1,4 +1,3 @@
-import { ChevronRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useReveal } from '@/hooks/useReveal'
 
@@ -70,21 +69,6 @@ export default function About() {
             A game designer focused on level and systems design — turning rough ideas into playable
             experiences that teach themselves.
           </p>
-
-          <a
-            href="#contact"
-            className={`group mt-6 inline-flex items-center bg-white rounded-xl shadow-sm opacity-0 ${
-              reveal
-            }`}
-            style={{ animationDelay: '0.25s' }}
-          >
-            <span className="w-11 h-11 m-0.5 rounded-lg bg-black flex items-center justify-center">
-              <ChevronRight className="w-5 h-5 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
-            </span>
-            <span className="px-5 py-3 text-sm font-jetbrains font-medium text-black">
-              Get in touch
-            </span>
-          </a>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">

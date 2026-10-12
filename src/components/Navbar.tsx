@@ -128,19 +128,6 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => goTo('Contact', '#contact')}
-            className="group hidden lg:flex items-center bg-black rounded-lg"
-          >
-            <span className="w-9 h-9 m-0.5 bg-white/10 rounded-md flex items-center justify-center">
-              <ChevronRight className="w-4 h-4 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
-            </span>
-            <span className="px-4 py-2.5 text-sm font-jetbrains font-medium text-white">
-              Get in touch
-            </span>
-          </button>
-
-          <button
-            type="button"
             aria-label="Toggle navigation"
             onClick={() => setMobileOpen((open) => !open)}
             className="lg:hidden relative w-10 h-10 rounded-lg bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center overflow-hidden"
@@ -189,19 +176,6 @@ export default function Navbar() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <button
-              type="button"
-              onClick={() => goTo('Contact', '#contact')}
-              style={{
-                transitionDelay: mobileOpen ? `${150 + NAV_LINKS.length * 70 + 50}ms` : '0ms',
-              }}
-              className={`w-full flex items-center justify-center gap-2 bg-white text-black rounded-xl text-lg font-jetbrains font-medium py-4 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.98] ${
-                mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-              }`}
-            >
-              Get in touch
-              <ChevronRight className="w-5 h-5" />
-            </button>
             <p className="text-white/30 text-xs text-center font-jetbrains">Game Design Portfolio</p>
           </div>
         </div>

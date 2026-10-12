@@ -54,8 +54,8 @@ export default function Hero() {
           className="font-jetbrains text-xs sm:text-sm text-white/60 max-w-sm leading-relaxed opacity-0 animate-fade-up"
           style={{ animationDelay: '0.7s' }}
         >
-          Level design, systems and prototyping — built in Unreal Engine 5 and Unity, tuned through
-          real playtests.
+          Actor AI research, level design, systems and prototyping — built in Unreal Engine 5 and
+          Unity, tuned through real playtests.
         </p>
 
         <a
