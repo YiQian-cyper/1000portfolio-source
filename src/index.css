@@ -90,8 +90,8 @@ body {
    panel and fade its lower edge into the panel; desktop keeps the full-bleed
    cover with the slow parallax zoom. */
 .about-clip-band {
-  -webkit-mask-image: linear-gradient(to bottom, #000 0 62%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0 62%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
 }
 
 @media (min-width: 640px) {

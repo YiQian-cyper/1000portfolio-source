@@ -1,10 +1,33 @@
 import { ChevronRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { useReveal } from '@/hooks/useReveal'
 
 const PANEL = 'rounded-t-[2rem] sm:rounded-t-[2.75rem]'
 
+// A 16:9 clip cannot fill a tall phone screen without a heavy crop, so small
+// screens show a square cut of the same footage with the flower centred on its
+// own background; wider screens keep the full-bleed 16:9 clip.
+const MOBILE_QUERY = '(max-width: 639px)'
+
+function useMobileClip() {
+  const [mobile, setMobile] = useState(() => window.matchMedia(MOBILE_QUERY).matches)
+
+  useEffect(() => {
+    const mq = window.matchMedia(MOBILE_QUERY)
+    const sync = () => setMobile(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
+  return mobile
+}
+
 export default function About() {
   const { ref, reveal } = useReveal<HTMLElement>(0.1)
+  const mobileClip = useMobileClip()
+  const clip = mobileClip ? 'videos/about-bg-mobile.mp4' : 'videos/about-bg.mp4'
+  const clipPoster = mobileClip ? 'videos/about-bg-mobile.jpg' : 'videos/about-bg.jpg'
 
   return (
     <section
@@ -18,11 +41,12 @@ export default function About() {
       <div className="pixel-edge-c absolute inset-x-0 -top-[3px] h-[3px] bg-[#f0eded]" aria-hidden />
 
       <div
-        className={`about-clip-band absolute left-0 right-0 top-0 aspect-video overflow-hidden sm:bottom-0 sm:aspect-auto ${PANEL}`}
+        className={`about-clip-band absolute left-0 right-0 top-1/2 aspect-square -translate-y-1/2 overflow-hidden sm:bottom-0 sm:top-0 sm:aspect-auto sm:translate-y-0 ${PANEL}`}
       >
         <video
-          src="videos/about-bg.mp4"
-          poster="videos/about-bg.jpg"
+          key={clip}
+          src={clip}
+          poster={clipPoster}
           preload="auto"
           autoPlay
           loop
